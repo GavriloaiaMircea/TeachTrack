@@ -29,7 +29,7 @@ function LoginPage() {
             id="floatingInput"
             placeholder="name@example.com"
           />
-          <label htmlFor="floatingInput">Email address</label>
+          <label htmlFor="floatingInput">Email address or Username</label>
         </div>
         <div className="form-floating mb-3">
           <input
