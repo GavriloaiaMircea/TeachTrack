@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthForm from "../components/AuthForm";
 import { validateRegister } from "../validationSchema";
 import { register } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+import useUserStore from "../stores/useUserStore";
 
 function RegisterPage() {
+  const user = useUserStore((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   const fields = [
     {
       type: "email",

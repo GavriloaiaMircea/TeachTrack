@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../assets/icon.png";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../stores/useUserStore";
 
 function AuthForm({
   title,
@@ -16,6 +17,7 @@ function AuthForm({
   const [err, setErr] = useState({});
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -30,7 +32,7 @@ function AuthForm({
     if (success) {
       try {
         await request(data);
-
+        setUser(data);
         navigate("/");
       } catch (err) {
         setServerError(err);

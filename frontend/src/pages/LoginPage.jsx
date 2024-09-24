@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthForm from "../components/AuthForm";
 import { validateLogin } from "../validationSchema";
 import { login } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+import useUserStore from "../stores/useUserStore";
 
 function LoginPage() {
+  const user = useUserStore((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   const fields = [
     {
       type: "text",
