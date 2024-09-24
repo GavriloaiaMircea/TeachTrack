@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../assets/icon.png";
 
-function AuthForm({ title, fields, buttonText, linkText, linkPath }) {
+function AuthForm({
+  title,
+  fields,
+  buttonText,
+  linkText,
+  linkPath,
+  validationSchema,
+}) {
+  const [data, setData] = useState({});
+  const [err, setErr] = useState({});
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const { success, errors } = validationSchema(data);
+
+    if (success) {
+      console.log("Form data:", data);
+    } else {
+      const errorObj = {};
+      errors.forEach((error) => {
+        errorObj[error.path[0]] = error.message;
+      });
+      setErr(errorObj);
+      console.log("Validation errors:", errors);
+    }
+  };
+
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"
@@ -11,6 +43,7 @@ function AuthForm({ title, fields, buttonText, linkText, linkPath }) {
       <form
         className="text-center p-4 bg-light rounded"
         style={{ width: "300px" }}
+        onSubmit={onSubmit}
       >
         <img
           className="mb-4"
@@ -26,11 +59,17 @@ function AuthForm({ title, fields, buttonText, linkText, linkPath }) {
           <div className="form-floating mb-3" key={index}>
             <input
               type={field.type}
-              className="form-control"
+              className={`form-control ${err[field.id] ? "is-invalid" : ""}`}
               id={field.id}
               placeholder={field.placeholder}
+              onChange={handleChange}
+              value={data[field.id] || ""}
             />
             <label htmlFor={field.id}>{field.label}</label>
+
+            {err[field.id] && (
+              <div className="invalid-feedback">{err[field.id]}</div>
+            )}
           </div>
         ))}
 

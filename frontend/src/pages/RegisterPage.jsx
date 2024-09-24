@@ -1,29 +1,30 @@
 import React from "react";
 import AuthForm from "../components/AuthForm";
+import { validateRegister } from "../validationSchema";
 
 function RegisterPage() {
   const fields = [
     {
       type: "email",
-      id: "floatingInput",
+      id: "email",
       label: "Email address",
       placeholder: "name@example.com",
     },
     {
       type: "text",
-      id: "floatingUsername",
+      id: "username",
       label: "Username",
       placeholder: "John Doe",
     },
     {
       type: "password",
-      id: "floatingPassword",
+      id: "password",
       label: "Password",
       placeholder: "Password",
     },
     {
       type: "password",
-      id: "floatingPassword2",
+      id: "confirmPassword",
       label: "Confirm password",
       placeholder: "Confirm password",
     },
@@ -36,6 +37,7 @@ function RegisterPage() {
       buttonText="Register"
       linkText="Already have an account?"
       linkPath="/login"
+      validationSchema={validateRegister}
     />
   );
 }
