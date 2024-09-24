@@ -1,6 +1,7 @@
 import React from "react";
 import AuthForm from "../components/AuthForm";
 import { validateRegister } from "../validationSchema";
+import { register } from "../services/authService";
 
 function RegisterPage() {
   const fields = [
@@ -38,6 +39,7 @@ function RegisterPage() {
       linkText="Already have an account?"
       linkPath="/login"
       validationSchema={validateRegister}
+      request={register}
     />
   );
 }

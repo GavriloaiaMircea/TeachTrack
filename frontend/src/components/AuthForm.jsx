@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../assets/icon.png";
+import { useNavigate } from "react-router-dom";
 
 function AuthForm({
   title,
@@ -9,22 +10,31 @@ function AuthForm({
   linkText,
   linkPath,
   validationSchema,
+  request,
 }) {
   const [data, setData] = useState({});
   const [err, setErr] = useState({});
+  const [serverError, setServerError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const { success, errors } = validationSchema(data);
 
     if (success) {
-      console.log("Form data:", data);
+      try {
+        await request(data);
+
+        navigate("/");
+      } catch (err) {
+        setServerError(err);
+      }
     } else {
       const errorObj = {};
       errors.forEach((error) => {
@@ -54,6 +64,8 @@ function AuthForm({
           style={{ borderRadius: "50%" }}
         />
         <h1 className="h3 mb-3 fw-normal">{title}</h1>
+
+        {serverError && <div className="alert alert-danger">{serverError}</div>}
 
         {fields.map((field, index) => (
           <div className="form-floating mb-3" key={index}>

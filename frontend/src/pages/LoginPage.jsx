@@ -1,6 +1,7 @@
 import React from "react";
 import AuthForm from "../components/AuthForm";
 import { validateLogin } from "../validationSchema";
+import { login } from "../services/authService";
 
 function LoginPage() {
   const fields = [
@@ -26,6 +27,7 @@ function LoginPage() {
       linkText="Don't have an account?"
       linkPath="/register"
       validationSchema={validateLogin}
+      request={login}
     />
   );
 }
