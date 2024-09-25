@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../stores/useUserStore";
 import { addClass } from "../services/classService";
+import ClassForm from "../components/ClassForm";
 
 function AddClassPage() {
   const [newClass, setNewClass] = useState({
@@ -40,56 +40,13 @@ function AddClassPage() {
   };
 
   return (
-    <Container className="d-flex flex-column align-items-center mt-5">
-      <h1 className="mb-4">Add a new Class!</h1>
-      <Form className="w-50" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="class_name">Class Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter class name"
-            value={newClass.class_name}
-            id="class_name"
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="subject">Subject</Form.Label>
-          <Form.Control
-            value={newClass.subject}
-            type="text"
-            placeholder="Enter subject"
-            id="subject"
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="school_year">School Year</Form.Label>
-          <Form.Control
-            value={newClass.school_year}
-            type="text"
-            placeholder="ex: 2023-2024"
-            id="school_year"
-            onChange={handleChange}
-            required
-          />
-          {error && <p className="text-danger">{error}</p>}
-        </Form.Group>
-
-        <div className="d-flex justify-content-between">
-          <Button variant="primary" type="submit">
-            Add Class
-          </Button>
-          <Button variant="secondary" onClick={() => navigate("/")}>
-            Cancel
-          </Button>
-        </div>
-      </Form>
-    </Container>
+    <ClassForm
+      handleSubmit={handleSubmit}
+      handleChange={handleChange}
+      newClass={newClass}
+      Cancel={() => navigate("/")}
+      error={error}
+    />
   );
 }
 

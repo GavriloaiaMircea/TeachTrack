@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../components/Card";
 import { Row, Col, Container } from "react-bootstrap";
 
-function Body({ classes }) {
+function Body({ classes, deleteClass }) {
   return (
     <Container className="mt-4">
       <Row>
