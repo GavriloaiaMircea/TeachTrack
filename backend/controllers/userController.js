@@ -6,8 +6,6 @@ dotenv.config();
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
-db.connect();
-
 export const loginUser = async (req, res) => {
   const { usernameOrEmail, password } = req.body;
 
