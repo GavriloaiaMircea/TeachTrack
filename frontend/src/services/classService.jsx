@@ -13,3 +13,13 @@ export const getClasses = async () => {
     return { message: "Internal server error" };
   }
 };
+
+export const addClass = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}classes`, data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
