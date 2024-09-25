@@ -20,3 +20,20 @@ export const getClasses = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const createClass = async (req, res) => {
+  const { teacher_id, class_name, subject, school_year } = req.body;
+
+  try {
+    const result = await db.query(
+      "INSERT INTO classes (teacher_id, class_name, subject, school_year) VALUES ($1, $2, $3, $4) RETURNING *",
+      [teacher_id, class_name, subject, school_year]
+    );
+    return res
+      .status(201)
+      .json({ message: "Class created", class: result.rows });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
