@@ -53,10 +53,14 @@ function HomePage() {
       });
   };
 
+  const handleUpdate = (id) => {
+    navigate(`/update-class/${id}`);
+  };
+
   return (
     <>
       <NavBar logout={handleLogout} addClass={addClass} />
-      <Body classes={classes} onDelete={handleDelete} />
+      <Body classes={classes} onDelete={handleDelete} onUpdate={handleUpdate} />
     </>
   );
 }

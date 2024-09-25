@@ -33,3 +33,23 @@ export const deleteClass = async (class_id) => {
     return { message: "Internal server error" };
   }
 };
+
+export const updateClass = async (data) => {
+  try {
+    const response = await axios.put(`${API_URL}classes`, data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
+
+export const getClassById = async (class_id) => {
+  try {
+    const response = await axios.get(`${API_URL}classes/getClass/${class_id}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};

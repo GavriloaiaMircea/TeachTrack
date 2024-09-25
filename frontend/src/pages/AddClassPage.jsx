@@ -46,6 +46,8 @@ function AddClassPage() {
       newClass={newClass}
       Cancel={() => navigate("/")}
       error={error}
+      text={"Add a new Class!"}
+      buttonText={"Add Class"}
     />
   );
 }

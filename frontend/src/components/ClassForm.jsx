@@ -4,7 +4,7 @@ import { Form, Button, Container } from "react-bootstrap";
 function ClassForm(props) {
   return (
     <Container className="d-flex flex-column align-items-center mt-5">
-      <h1 className="mb-4">Add a new Class!</h1>
+      <h1 className="mb-4">{props.text}</h1>
       <Form className="w-50" onSubmit={props.handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label htmlFor="class_name">Class Name</Form.Label>
@@ -45,7 +45,7 @@ function ClassForm(props) {
 
         <div className="d-flex justify-content-between">
           <Button variant="primary" type="submit">
-            Add Class
+            {props.buttonText}
           </Button>
           <Button variant="secondary" onClick={props.Cancel}>
             Cancel

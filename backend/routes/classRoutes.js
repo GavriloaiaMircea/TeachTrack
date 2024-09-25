@@ -3,6 +3,7 @@ import {
   createClass,
   deleteClass,
   updateClass,
+  getClassById,
 } from "../controllers/classController.js";
 import express from "express";
 
@@ -15,5 +16,7 @@ router.post("/", createClass);
 router.delete("/:class_id", deleteClass);
 
 router.put("/", updateClass);
+
+router.get("/getClass/:class_id", getClassById);
 
 export default router;
