@@ -11,7 +11,10 @@ import {
 } from "react-bootstrap";
 
 function NavBar(props) {
-  const user = useUserStore((state) => state.user);
+  let user = useUserStore((state) => state.user);
+
+  user.username =
+    user.username[0].toUpperCase() + user.username.slice(1).toLowerCase();
 
   return (
     <Navbar bg="light" expand="lg" className="justify-content-between px-3">

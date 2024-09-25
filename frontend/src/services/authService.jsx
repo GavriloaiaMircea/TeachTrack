@@ -8,7 +8,6 @@ export const login = async (data) => {
     const response = await axios.post(`${API_URL}users/login`, data);
     const user = response.data.user;
 
-    console.log(user);
     useUserStore.getState().setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
 
@@ -23,7 +22,6 @@ export const register = async (data) => {
   try {
     const response = await axios.post(`${API_URL}users/register`, data);
     const user = response.data.user;
-    console.log(user);
     useUserStore.getState().setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
 
