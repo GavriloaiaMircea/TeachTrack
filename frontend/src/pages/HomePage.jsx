@@ -39,9 +39,13 @@ function HomePage() {
     navigate("/login");
   };
 
+  const addClass = () => {
+    navigate("/add-class");
+  };
+
   return (
     <>
-      <NavBar logout={handleLogout} />
+      <NavBar logout={handleLogout} addClass={addClass} />
       <Body classes={classes} />
     </>
   );

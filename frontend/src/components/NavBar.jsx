@@ -35,7 +35,7 @@ function NavBar(props) {
         </Form>
 
         <Nav>
-          <Button variant="primary" className="me-3">
+          <Button variant="primary" className="me-3" onClick={props.addClass}>
             Add a new Class
           </Button>
           <Button variant="danger" onClick={props.logout}>
