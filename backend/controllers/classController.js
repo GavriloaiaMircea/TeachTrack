@@ -17,7 +17,7 @@ export const getClasses = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -35,5 +35,22 @@ export const createClass = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const deleteClass = async (req, res) => {
+  const class_id = req.params.class_id.trim();
+
+  try {
+    const result = await db.query("DELETE FROM classes WHERE id = $1", [
+      class_id,
+    ]);
+    if (result.rowCount === 0) {
+      return res.status(400).json({ message: "Class not found" });
+    }
+    return res.status(200).json({ message: "Class deleted" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
