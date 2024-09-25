@@ -32,7 +32,6 @@ function AuthForm({
     if (success) {
       try {
         await request(data);
-        setUser(data);
         navigate("/");
       } catch (err) {
         setServerError(err);
@@ -50,7 +49,7 @@ function AuthForm({
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"
-      style={{ backgroundColor: "#343a40" }}
+      style={{ backgroundColor: "#2c3e50" }}
     >
       <form
         className="text-center p-4 bg-light rounded"
