@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { getClasses } from "../services/classService";
+import { getClasses, deleteClass } from "../services/classService";
 import Body from "../components/Body";
 
 function HomePage() {
@@ -43,10 +43,20 @@ function HomePage() {
     navigate("/add-class");
   };
 
+  const handleDelete = (id) => {
+    deleteClass(id)
+      .then(() => {
+        setClasses(classes.filter((c) => c.id !== id));
+      })
+      .catch((error) => {
+        console.error("Error deleting class:", error);
+      });
+  };
+
   return (
     <>
       <NavBar logout={handleLogout} addClass={addClass} />
-      <Body classes={classes} />
+      <Body classes={classes} onDelete={handleDelete} />
     </>
   );
 }

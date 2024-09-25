@@ -12,7 +12,12 @@ function ClassCard(props) {
         <Card.Text>{subject}</Card.Text>
         <Card.Text>{props.school_year}</Card.Text>
         <button className="btn btn-outline-primary me-2">EDIT</button>
-        <button className="btn btn-outline-danger">DELETE</button>
+        <button
+          className="btn btn-outline-danger"
+          onClick={() => props.onDelete(props.id)}
+        >
+          DELETE
+        </button>
       </Card.Body>
     </Card>
   );

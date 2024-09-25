@@ -23,3 +23,13 @@ export const addClass = async (data) => {
     return { message: "Internal server error" };
   }
 };
+
+export const deleteClass = async (class_id) => {
+  try {
+    const response = await axios.delete(`${API_URL}classes/${class_id}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
