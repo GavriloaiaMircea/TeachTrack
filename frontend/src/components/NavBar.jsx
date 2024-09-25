@@ -9,17 +9,9 @@ import {
   Container,
   Nav,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
-function NavBar() {
+function NavBar(props) {
   const user = useUserStore((state) => state.user);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    useUserStore.getState().clearUser();
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
 
   return (
     <Navbar bg="light" expand="lg" className="justify-content-between px-3">
@@ -43,7 +35,7 @@ function NavBar() {
           <Button variant="primary" className="me-3">
             Add a new Class
           </Button>
-          <Button variant="danger" onClick={handleLogout}>
+          <Button variant="danger" onClick={props.logout}>
             Logout
           </Button>
         </Nav>
