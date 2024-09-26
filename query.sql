@@ -40,3 +40,21 @@ CREATE TABLE attendance(
 	date DATE,
 	status varchar(50)
 )
+
+-- Alter table students_classes to add ON DELETE CASCADE for class_id
+ALTER TABLE students_classes
+DROP CONSTRAINT students_classes_class_id_fkey,
+ADD CONSTRAINT students_classes_class_id_fkey FOREIGN KEY (class_id)
+REFERENCES classes(id) ON DELETE CASCADE;
+
+-- Alter table grades to add ON DELETE CASCADE
+ALTER TABLE grades
+DROP CONSTRAINT grades_student_class_id_fkey,
+ADD CONSTRAINT grades_student_class_id_fkey FOREIGN KEY (student_class_id)
+REFERENCES students_classes(id) ON DELETE CASCADE;
+
+-- Alter table attendance to add ON DELETE CASCADE
+ALTER TABLE attendance
+DROP CONSTRAINT attendance_student_class_id_fkey,
+ADD CONSTRAINT attendance_student_class_id_fkey FOREIGN KEY (student_class_id)
+REFERENCES students_classes(id) ON DELETE CASCADE;

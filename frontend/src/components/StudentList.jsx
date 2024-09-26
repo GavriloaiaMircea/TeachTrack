@@ -3,13 +3,17 @@ import GradeList from "./GradeList";
 import AttendanceList from "./AttendanceList";
 
 function StudentList({ students, onDelete, classId }) {
-  const sortedStudents = [...students].sort((a, b) => {
-    const lastNameComparison = a.last_name.localeCompare(b.last_name);
-    if (lastNameComparison !== 0) {
-      return lastNameComparison;
-    }
-    return a.first_name.localeCompare(b.first_name);
-  });
+  let sortedStudents = students || []; // Folosim let în loc de const și fallback la []
+
+  if (students && students.length > 0) {
+    sortedStudents = [...students].sort((a, b) => {
+      const lastNameComparison = a.last_name.localeCompare(b.last_name);
+      if (lastNameComparison !== 0) {
+        return lastNameComparison;
+      }
+      return a.first_name.localeCompare(b.first_name);
+    });
+  }
 
   return (
     <div className="container-fluid px-4">
