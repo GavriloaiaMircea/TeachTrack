@@ -70,3 +70,23 @@ export const addStudent = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const deleteStudent = async (req, res) => {
+  const class_id = req.params.class_id;
+  const student_id = req.params.student_id;
+
+  try {
+    const response = await db.query(
+      "DELETE FROM students_classes WHERE student_id = $1 AND class_id = $2",
+      [student_id, class_id]
+    );
+    if (response.rowCount === 0) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    res.status(200).json({ message: "Student deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

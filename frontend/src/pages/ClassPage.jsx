@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getClassById } from "../services/classService";
 import { getStudents } from "../services/studentService";
 import ClassHeading from "../components/classHeading";
+import StudentList from "../components/StudentList";
 
 function ClassPage() {
   const [classData, setClassData] = useState({
@@ -37,6 +38,10 @@ function ClassPage() {
     navigate(`/class/${id}/add-student`);
   };
 
+  const onDelete = (studentId) => {
+    console.log(studentId);
+  };
+
   return (
     <div>
       <ClassHeading
@@ -44,16 +49,7 @@ function ClassPage() {
         handleBack={() => navigate("/")}
         handleAddStudent={handleSubmit}
       />
-      <h2>Students</h2>
-      {students.length > 0 ? (
-        students.map((student) => (
-          <div key={student.id}>
-            {student.first_name} {student.last_name}
-          </div>
-        ))
-      ) : (
-        <p>No students found</p>
-      )}
+      <StudentList students={students} onDelete={onDelete} />
     </div>
   );
 }
