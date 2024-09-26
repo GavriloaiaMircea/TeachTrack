@@ -19,3 +19,54 @@ export const getStudents = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const addStudent = async (req, res) => {
+  const { first_name, last_name } = req.body;
+  const class_id = req.params.class_id;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM students WHERE first_name = $1 AND last_name = $2",
+      [first_name, last_name]
+    );
+
+    if (result.rows.length > 0) {
+      const student_id = result.rows[0].id;
+      const class_student = await db.query(
+        "SELECT * FROM students_classes WHERE student_id = $1 AND class_id = $2",
+        [student_id, class_id]
+      );
+      if (class_student.rows.length > 0) {
+        return res
+          .status(400)
+          .json({ message: "Student already enrolled in this class" });
+      }
+
+      await db.query(
+        "INSERT INTO students_classes (student_id,class_id) VALUES ($1,$2)",
+        [student_id, class_id]
+      );
+
+      return res.status(201).json({ message: "Student added successfully" });
+    }
+
+    const newStudent = await db.query(
+      "INSERT INTO students (first_name,last_name) VALUES ($1,$2) RETURNING *",
+      [first_name, last_name]
+    );
+
+    const newStudentId = newStudent.rows[0].id;
+
+    await db.query(
+      "INSERT INTO students_classes (student_id,class_id) VALUES ($1,$2)",
+      [newStudentId, class_id]
+    );
+
+    return res
+      .status(201)
+      .json({ message: "Student created and added successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
