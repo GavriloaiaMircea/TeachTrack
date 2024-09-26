@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function AttendanceList({ classId, studentId }) {
   const [attendance, setAttendance] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,16 +50,28 @@ function AttendanceList({ classId, studentId }) {
     navigate(`/class/${classId}/${studentId}/add-attendance`);
   };
 
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <div className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4 className="mb-0">Attendance</h4>
-        <button className="btn btn-success btn-sm" onClick={handleAdd}>
-          Add
-        </button>
+        <div>
+          <button className="btn btn-success btn-sm me-2" onClick={handleAdd}>
+            Add
+          </button>
+          <button
+            className={`btn btn-${isExpanded ? "secondary" : "primary"} btn-sm`}
+            onClick={toggleExpand}
+          >
+            {isExpanded ? "Hide" : "Show"} Attendance
+          </button>
+        </div>
       </div>
       {attendance && attendance.length > 0 ? (
-        <div className="list-group">
+        <div className={`list-group ${isExpanded ? "" : "collapse"}`}>
           {attendance.map((record, index) => (
             <div
               key={index}

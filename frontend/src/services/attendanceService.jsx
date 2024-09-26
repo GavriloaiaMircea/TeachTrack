@@ -23,3 +23,16 @@ export const deleteAttendance = async (id) => {
     return { message: "Internal server error" };
   }
 };
+
+export const addAttendance = async (classId, studentId, data) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}attendance/${studentId}/${classId}`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};

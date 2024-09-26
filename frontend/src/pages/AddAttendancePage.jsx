@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { addAttendance } from "../services/attendanceService";
+import { sub } from "date-fns";
 
 function AddAttendancePage() {
   const [newAttendance, setNewAttendance] = useState({
@@ -7,7 +9,7 @@ function AddAttendancePage() {
     status: "Present",
   });
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, studentId } = useParams();
 
   useEffect(() => {
     const today = new Date();
@@ -42,7 +44,14 @@ function AddAttendancePage() {
       ...newAttendance,
       date: formatDateForDisplay(newAttendance.date),
     };
-    console.log(submissionData);
+
+    addAttendance(id, studentId, submissionData)
+      .then(() => {
+        navigate(`/class/${id}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
