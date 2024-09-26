@@ -17,31 +17,45 @@ function NavBar(props) {
     user.username[0].toUpperCase() + user.username.slice(1).toLowerCase();
 
   return (
-    <Navbar bg="light" expand="lg" className="justify-content-between px-3">
-      <Container fluid>
-        <Navbar.Brand className="d-flex align-items-center">
-          <img src={icon} width="40" height="40" alt="" className="me-3" />
-          <span className="h4 mb-0">Hello {user.username}</span>
+    <Navbar bg="light" expand="lg" className="px-3">
+      <Container fluid className="flex-column flex-lg-row">
+        <Navbar.Brand className="d-flex align-items-center mb-2 mb-lg-0">
+          <img src={icon} width="40" height="40" alt="" className="me-2" />
+          <span className="h5 mb-0">Hello {user.username}</span>
         </Navbar.Brand>
 
-        <Form className="d-flex col-6 mx-auto">
-          <FormControl
-            type="search"
-            placeholder="SEARCH A CLASS"
-            className="me-3"
-            style={{ flexGrow: 1 }}
-          />
-          <Button variant="outline-success">Search</Button>
-        </Form>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="mb-2" />
 
-        <Nav>
-          <Button variant="primary" className="me-3" onClick={props.addClass}>
-            Add a new Class
-          </Button>
-          <Button variant="danger" onClick={props.logout}>
-            Logout
-          </Button>
-        </Nav>
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className="flex-column flex-lg-row w-100"
+        >
+          <Form
+            className="d-flex mb-2 mb-lg-0 mx-lg-auto"
+            style={{ maxWidth: "400px", width: "100%" }}
+          >
+            <FormControl
+              type="search"
+              placeholder="SEARCH A CLASS"
+              className="me-2"
+              style={{ flexGrow: 1 }}
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
+
+          <Nav className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center">
+            <Button
+              variant="primary"
+              className="mb-2 mb-lg-0 me-lg-2"
+              onClick={props.addClass}
+            >
+              Add a new Class
+            </Button>
+            <Button variant="danger" onClick={props.logout}>
+              Logout
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

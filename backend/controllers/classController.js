@@ -23,7 +23,6 @@ export const getClasses = async (req, res) => {
 
 export const getClassById = async (req, res) => {
   const class_id = req.params.class_id.trim();
-  console.log(class_id);
 
   try {
     const result = await db.query("SELECT * FROM classes WHERE id = $1", [
