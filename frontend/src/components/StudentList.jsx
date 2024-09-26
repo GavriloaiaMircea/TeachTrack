@@ -3,7 +3,7 @@ import GradeList from "./GradeList";
 import AttendanceList from "./AttendanceList";
 
 function StudentList({ students, onDelete, classId }) {
-  let sortedStudents = students || []; // Folosim let în loc de const și fallback la []
+  let sortedStudents = students || [];
 
   if (students && students.length > 0) {
     sortedStudents = [...students].sort((a, b) => {
@@ -23,7 +23,7 @@ function StudentList({ students, onDelete, classId }) {
           {sortedStudents.map((student) => (
             <div key={student.id} className="col-12 col-md-6 col-lg-4">
               <div
-                className="bg-light shadow-sm rounded p-4 h-100"
+                className="bg-light shadow-sm rounded p-4 h-100 d-flex flex-column"
                 style={{ backgroundColor: "#f8f9fa" }}
               >
                 <div className="d-flex justify-content-between align-items-center mb-3">
@@ -37,11 +37,13 @@ function StudentList({ students, onDelete, classId }) {
                     Delete
                   </button>
                 </div>
-                <div className="col-12 col-sm-6 mb-3 mb-sm-0 row">
-                  <GradeList grades={student.grades || []} />
-                </div>
-                <div className="col-12 col-sm-6 row">
-                  <AttendanceList studentId={student.id} classId={classId} />
+                <div className="flex-grow-1 d-flex flex-column">
+                  <div className="mb-3">
+                    <GradeList grades={student.grades || []} />
+                  </div>
+                  <div>
+                    <AttendanceList studentId={student.id} classId={classId} />
+                  </div>
                 </div>
               </div>
             </div>
