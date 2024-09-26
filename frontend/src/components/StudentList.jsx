@@ -2,7 +2,7 @@ import React from "react";
 import GradeList from "./GradeList";
 import AttendanceList from "./AttendanceList";
 
-function StudentList({ students, onDelete }) {
+function StudentList({ students, onDelete, classId }) {
   const sortedStudents = [...students].sort((a, b) => {
     const lastNameComparison = a.last_name.localeCompare(b.last_name);
     if (lastNameComparison !== 0) {
@@ -37,7 +37,7 @@ function StudentList({ students, onDelete }) {
                   <GradeList grades={student.grades || []} />
                 </div>
                 <div className="col-12 col-sm-6 row">
-                  <AttendanceList attendance={student.attendance || []} />
+                  <AttendanceList studentId={student.id} classId={classId} />
                 </div>
               </div>
             </div>

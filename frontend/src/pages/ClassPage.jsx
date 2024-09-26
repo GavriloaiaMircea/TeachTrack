@@ -55,7 +55,7 @@ function ClassPage() {
         handleBack={() => navigate("/")}
         handleAddStudent={handleSubmit}
       />
-      <StudentList students={students} onDelete={onDelete} />
+      <StudentList students={students} onDelete={onDelete} classId={id} />
     </div>
   );
 }
