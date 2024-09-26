@@ -92,6 +92,16 @@ function AttendanceList({ classId, studentId }) {
                 </span>
               </div>
               <button
+                className="btn btn-outline-secondary btn-sm me-2"
+                onClick={() =>
+                  navigate(
+                    `/class/${classId}/${studentId}/edit-attendance/${record.id}`
+                  )
+                }
+              >
+                Edit
+              </button>
+              <button
                 className="btn btn-outline-danger btn-sm"
                 onClick={() => handleDelete(record.id)}
               >

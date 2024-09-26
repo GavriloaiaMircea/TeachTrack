@@ -86,3 +86,66 @@ export const addAttendance = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const getAttendanceById = async (req, res) => {
+  const id = req.params.id.trim();
+  try {
+    const response = await db.query("SELECT * FROM attendance WHERE id=$1", [
+      id,
+    ]);
+
+    if (response.rowCount === 0) {
+      return res.status(400).json({ message: "Attendance not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Attendance found", attendance: response.rows[0] });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const updateAttendance = async (req, res) => {
+  const { id, date, status } = req.body;
+
+  try {
+    const response = await db.query("SELECT * FROM attendance WHERE id=$1", [
+      id,
+    ]);
+
+    if (response.rowCount === 0) {
+      return res.status(400).json({ message: "Attendance not found" });
+    }
+
+    let formattedDate;
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      formattedDate = date;
+    } else {
+      const parsedDate = parse(date, "dd/MM/yyyy", new Date());
+      if (!isValid(parsedDate)) {
+        return res.status(400).json({ message: "Invalid date format" });
+      }
+
+      formattedDate = format(parsedDate, "yyyy-MM-dd");
+    }
+
+    const result = await db.query(
+      "UPDATE attendance SET date=$1, status=$2 WHERE id=$3 RETURNING *",
+      [formattedDate, status, id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(400).json({ message: "Attendance not updated" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Attendance updated", attendance: result.rows[0] });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

@@ -36,3 +36,23 @@ export const addAttendance = async (classId, studentId, data) => {
     return { message: "Internal server error" };
   }
 };
+
+export const getAttendanceById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}attendance/${id}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
+
+export const updateAttendance = async (data) => {
+  try {
+    const response = await axios.put(`${API_URL}attendance`, data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
