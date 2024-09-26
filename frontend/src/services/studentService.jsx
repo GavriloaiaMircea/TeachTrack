@@ -11,3 +11,16 @@ export const getStudents = async (class_id) => {
     return { message: "Internal server error" };
   }
 };
+
+export const addStudent = async (student, class_id) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}students/${class_id}`,
+      student
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};

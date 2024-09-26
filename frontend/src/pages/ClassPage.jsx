@@ -33,9 +33,17 @@ function ClassPage() {
       });
   }, [id]);
 
+  const handleSubmit = () => {
+    navigate(`/class/${id}/add-student`);
+  };
+
   return (
     <div>
-      <ClassHeading classData={classData} handleBack={() => navigate("/")} />
+      <ClassHeading
+        classData={classData}
+        handleBack={() => navigate("/")}
+        handleAddStudent={handleSubmit}
+      />
       <h2>Students</h2>
       {students.length > 0 ? (
         students.map((student) => (
