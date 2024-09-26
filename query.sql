@@ -17,6 +17,7 @@ CREATE TABLE students(
 	id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 	first_name TEXT,
 	last_name TEXT
+	CONSTRAINT unique_student_name UNIQUE (first_name, last_name)
 )
 
 CREATE TABLE students_classes(

@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../components/Card";
 import { Row, Col, Container } from "react-bootstrap";
 
-function Body({ classes, onDelete, onUpdate }) {
+function Body({ classes, onDelete, onUpdate, onView }) {
   return (
     <Container className="mt-4">
       <Row>
@@ -16,6 +16,7 @@ function Body({ classes, onDelete, onUpdate }) {
                 school_year={c.school_year}
                 onDelete={onDelete}
                 onUpdate={onUpdate}
+                onView={onView}
               />
             </Col>
           ))

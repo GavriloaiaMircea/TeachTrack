@@ -57,10 +57,19 @@ function HomePage() {
     navigate(`/update-class/${id}`);
   };
 
+  const handleView = (id) => {
+    navigate(`/class/${id}`);
+  };
+
   return (
     <>
       <NavBar logout={handleLogout} addClass={addClass} />
-      <Body classes={classes} onDelete={handleDelete} onUpdate={handleUpdate} />
+      <Body
+        classes={classes}
+        onDelete={handleDelete}
+        onUpdate={handleUpdate}
+        onView={handleView}
+      />
     </>
   );
 }

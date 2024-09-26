@@ -5,6 +5,7 @@ import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import AddClassPage from "./pages/AddClassPage";
 import UpdateClassPage from "./pages/UpdateClassPage";
+import ClassPage from "./pages/ClassPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/update-class/:id",
     element: <UpdateClassPage />,
+  },
+  {
+    path: "/class/:id",
+    element: <ClassPage />,
   },
 ]);
 

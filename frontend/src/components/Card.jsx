@@ -18,10 +18,16 @@ function ClassCard(props) {
           EDIT
         </button>
         <button
-          className="btn btn-outline-danger"
+          className="btn btn-outline-danger me-2"
           onClick={() => props.onDelete(props.id)}
         >
           DELETE
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => props.onView(props.id)}
+        >
+          View Class
         </button>
       </Card.Body>
     </Card>
