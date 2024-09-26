@@ -13,3 +13,13 @@ export const getAttendance = async (studentId, classId) => {
     return { message: "Internal server error" };
   }
 };
+
+export const deleteAttendance = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}attendance/${id}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
