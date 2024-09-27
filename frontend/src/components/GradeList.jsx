@@ -81,27 +81,27 @@ function GradeList({ studentId, classId }) {
                   key={index}
                   className="list-group-item list-group-item-action p-2"
                 >
-                  <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
                     <div
-                      className="d-flex align-items-center"
-                      style={{ width: "70%" }}
+                      className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center mb-2 mb-sm-0"
+                      style={{ width: "100%" }}
                     >
                       <span
-                        className="fw-medium me-3"
-                        style={{ width: "100px" }}
+                        className="fw-medium me-3 mb-1 mb-sm-0"
+                        style={{ minWidth: "100px" }}
                       >
                         {formatDate(grade.date_added)}
                       </span>
                       <span
-                        className="badge bg-primary"
-                        style={{ width: "70px", textAlign: "center" }}
+                        className="badge bg-primary mb-1 mb-sm-0"
+                        style={{ minWidth: "70px", textAlign: "center" }}
                       >
                         {grade.grade}/10
                       </span>
                     </div>
-                    <div>
+                    <div className="mt-2 mt-sm-0">
                       <button
-                        className="btn btn-outline-secondary btn-sm me-2"
+                        className="btn btn-outline-secondary btn-sm me-2 mb-1 mb-sm-0"
                         onClick={() => handleEdit(grade.id)}
                       >
                         Edit

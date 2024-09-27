@@ -77,39 +77,46 @@ function AttendanceList({ classId, studentId }) {
               {attendance.map((record, index) => (
                 <div
                   key={index}
-                  className="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-2"
+                  className="list-group-item list-group-item-action p-2"
                 >
-                  <div
-                    className="d-flex align-items-center"
-                    style={{ width: "70%" }}
-                  >
-                    <span className="fw-medium me-3" style={{ width: "100px" }}>
-                      {format(parseISO(record.date), "dd/MM/yyyy")}
-                    </span>
-                    <span
-                      className={`badge bg-${getStatusColor(record.status)}`}
-                      style={{ width: "70px", textAlign: "center" }}
+                  <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                    <div
+                      className="d-flex flex-column flex-md-row align-items-start align-items-md-center mb-2 mb-md-0"
+                      style={{ width: "100%" }}
                     >
-                      {record.status}
-                    </span>
-                  </div>
-                  <div>
-                    <button
-                      className="btn btn-outline-secondary btn-sm me-2"
-                      onClick={() =>
-                        navigate(
-                          `/class/${classId}/${studentId}/edit-attendance/${record.id}`
-                        )
-                      }
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => handleDelete(record.id)}
-                    >
-                      Delete
-                    </button>
+                      <span
+                        className="fw-medium me-md-3 mb-1 mb-md-0"
+                        style={{ minWidth: "100px" }}
+                      >
+                        {format(parseISO(record.date), "dd/MM/yyyy")}
+                      </span>
+                      <span
+                        className={`badge bg-${getStatusColor(
+                          record.status
+                        )} mb-1 mb-md-0`}
+                        style={{ minWidth: "70px", textAlign: "center" }}
+                      >
+                        {record.status}
+                      </span>
+                    </div>
+                    <div className="mt-2 mt-md-0">
+                      <button
+                        className="btn btn-outline-secondary btn-sm me-2 mb-1 mb-md-0"
+                        onClick={() =>
+                          navigate(
+                            `/class/${classId}/${studentId}/edit-attendance/${record.id}`
+                          )
+                        }
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => handleDelete(record.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
