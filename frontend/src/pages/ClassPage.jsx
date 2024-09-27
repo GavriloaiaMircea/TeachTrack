@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getClassById } from "../services/classService";
 import { getStudents, deleteStudent } from "../services/studentService";
-import ClassHeading from "../components/classHeading";
+import ClassHeading from "../components/ClassHeading";
 import StudentList from "../components/StudentList";
 
 function ClassPage() {
