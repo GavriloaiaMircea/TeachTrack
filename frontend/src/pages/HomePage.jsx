@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import useUserStore from "../stores/useUserStore";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { getClasses, deleteClass } from "../services/classService";
+import {
+  getClasses,
+  deleteClass,
+  searchClasses,
+} from "../services/classService";
 import Body from "../components/Body";
 
 function HomePage() {
@@ -11,8 +15,10 @@ function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setClasses([]);
+    loadClasses();
+  }, [user, navigate]);
 
+  const loadClasses = () => {
     if (!user) {
       navigate("/login");
     } else {
@@ -26,11 +32,7 @@ function HomePage() {
           console.error("Error fetching classes:", error);
         });
     }
-
-    return () => {
-      setClasses([]);
-    };
-  }, [user, navigate]);
+  };
 
   const handleLogout = () => {
     useUserStore.getState().clearUser();
@@ -61,9 +63,25 @@ function HomePage() {
     navigate(`/class/${id}`);
   };
 
+  const handleSearch = (searchTerm) => {
+    searchClasses(searchTerm)
+      .then((data) => {
+        if (data && Array.isArray(data)) {
+          setClasses(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error searching classes:", error);
+      });
+  };
+
   return (
     <>
-      <NavBar logout={handleLogout} addClass={addClass} />
+      <NavBar
+        logout={handleLogout}
+        addClass={addClass}
+        onSearch={handleSearch}
+      />
       <Body
         classes={classes}
         onDelete={handleDelete}

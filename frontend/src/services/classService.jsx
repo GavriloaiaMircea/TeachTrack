@@ -3,6 +3,19 @@ import useUserStore from "../stores/useUserStore";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+export const searchClasses = async (searchTerm) => {
+  try {
+    const teacher_id = useUserStore.getState().user.id;
+    const response = await axios.get(`${API_URL}classes/search/${teacher_id}`, {
+      params: { searchTerm },
+    });
+    return response.data.classes;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};
+
 export const getClasses = async () => {
   try {
     const teacher_id = useUserStore.getState().user.id;

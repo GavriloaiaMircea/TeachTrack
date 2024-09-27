@@ -1,5 +1,24 @@
 import db from "../config/db.js";
 
+export const searchClasses = async (req, res) => {
+  const teacher_id = req.params.teacher_id.trim();
+  const searchTerm = req.query.searchTerm;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM classes WHERE teacher_id = $1 AND (class_name ILIKE $2 OR subject ILIKE $2 OR school_year ILIKE $2)",
+      [teacher_id, `%${searchTerm}%`]
+    );
+
+    return res
+      .status(200)
+      .json({ message: "Classes found", classes: result.rows });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const getClasses = async (req, res) => {
   const teacher_id = req.params.teacher_id.trim();
 
