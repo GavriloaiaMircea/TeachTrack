@@ -66,7 +66,7 @@ function AttendanceList({ classId, studentId }) {
             className={`btn btn-${isExpanded ? "secondary" : "primary"} btn-sm`}
             onClick={toggleExpand}
           >
-            {isExpanded ? "Hide" : "Show"} Attendance
+            {isExpanded ? "Hide" : "Show"}
           </button>
         </div>
       </div>
@@ -91,22 +91,24 @@ function AttendanceList({ classId, studentId }) {
                   {record.status}
                 </span>
               </div>
-              <button
-                className="btn btn-outline-secondary btn-sm me-2"
-                onClick={() =>
-                  navigate(
-                    `/class/${classId}/${studentId}/edit-attendance/${record.id}`
-                  )
-                }
-              >
-                Edit
-              </button>
-              <button
-                className="btn btn-outline-danger btn-sm"
-                onClick={() => handleDelete(record.id)}
-              >
-                Delete
-              </button>
+              <div>
+                <button
+                  className="btn btn-outline-secondary btn-sm me-2"
+                  onClick={() =>
+                    navigate(
+                      `/class/${classId}/${studentId}/edit-attendance/${record.id}`
+                    )
+                  }
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={() => handleDelete(record.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>

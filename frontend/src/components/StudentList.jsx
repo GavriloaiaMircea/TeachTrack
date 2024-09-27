@@ -39,7 +39,7 @@ function StudentList({ students, onDelete, classId }) {
                 </div>
                 <div className="flex-grow-1 d-flex flex-column">
                   <div className="mb-3">
-                    <GradeList grades={student.grades || []} />
+                    <GradeList studentId={student.id} classId={classId} />
                   </div>
                   <div>
                     <AttendanceList studentId={student.id} classId={classId} />
