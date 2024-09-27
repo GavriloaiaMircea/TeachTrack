@@ -14,8 +14,9 @@ function NavBar({ logout, addClass, onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
   let user = useUserStore((state) => state.user);
 
-  user.username =
-    user.username[0].toUpperCase() + user.username.slice(1).toLowerCase();
+  const username = user?.username
+    ? user.username[0].toUpperCase() + user.username.slice(1).toLowerCase()
+    : "Guest";
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ function NavBar({ logout, addClass, onSearch }) {
       <Container fluid className="flex-column flex-lg-row">
         <Navbar.Brand className="d-flex align-items-center mb-2 mb-lg-0">
           <img src={icon} width="40" height="40" alt="" className="me-2" />
-          <span className="h5 mb-0">Hello {user.username}</span>
+          <span className="h5 mb-0">Hello {username}</span>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="mb-2" />

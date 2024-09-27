@@ -15,23 +15,23 @@ function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadClasses();
-  }, [user, navigate]);
-
-  const loadClasses = () => {
     if (!user) {
       navigate("/login");
     } else {
-      getClasses()
-        .then((data) => {
-          if (data && Array.isArray(data)) {
-            setClasses(data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching classes:", error);
-        });
+      loadClasses();
     }
+  }, [user, navigate]);
+
+  const loadClasses = () => {
+    getClasses()
+      .then((data) => {
+        if (data && Array.isArray(data)) {
+          setClasses(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching classes:", error);
+      });
   };
 
   const handleLogout = () => {
@@ -77,17 +77,21 @@ function HomePage() {
 
   return (
     <>
-      <NavBar
-        logout={handleLogout}
-        addClass={addClass}
-        onSearch={handleSearch}
-      />
-      <Body
-        classes={classes}
-        onDelete={handleDelete}
-        onUpdate={handleUpdate}
-        onView={handleView}
-      />
+      {user && (
+        <>
+          <NavBar
+            logout={handleLogout}
+            addClass={addClass}
+            onSearch={handleSearch}
+          />
+          <Body
+            classes={classes}
+            onDelete={handleDelete}
+            onUpdate={handleUpdate}
+            onView={handleView}
+          />
+        </>
+      )}
     </>
   );
 }
