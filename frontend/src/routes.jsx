@@ -10,6 +10,7 @@ import AddStudentPage from "./pages/AddStudentPage";
 import AddAttendancePage from "./pages/AddAttendancePage";
 import EditAttendancePage from "./pages/EditAttendancePage";
 import AddGradePage from "./pages/AddGradePage";
+import EditGradePage from "./pages/EditGradePage";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/class/:id/:studentId/add-grade",
     element: <AddGradePage />,
+  },
+  {
+    path: "/class/:id/:studentId/edit-grade/:gradeId",
+    element: <EditGradePage />,
   },
 ]);
 

@@ -43,7 +43,7 @@ function GradeList({ studentId, classId }) {
   };
 
   const handleEdit = (gradeId) => {
-    console.log("Edit grade", gradeId);
+    navigate(`/class/${classId}/${studentId}/edit-grade/${gradeId}`);
   };
 
   const handleDelete = (gradeId) => {
@@ -72,53 +72,63 @@ function GradeList({ studentId, classId }) {
           </button>
         </div>
       </div>
-      {grades.length > 0 ? (
-        <div className={`list-group ${isExpanded ? "" : "collapse"}`}>
-          {grades.map((grade, index) => (
-            <div
-              key={index}
-              className="list-group-item list-group-item-action p-2"
-            >
-              <div className="d-flex justify-content-between align-items-center">
+      {isExpanded && (
+        <>
+          {grades.length > 0 ? (
+            <div className="list-group">
+              {grades.map((grade, index) => (
                 <div
-                  className="d-flex align-items-center"
-                  style={{ width: "70%" }}
+                  key={index}
+                  className="list-group-item list-group-item-action p-2"
                 >
-                  <span className="fw-medium me-3" style={{ width: "100px" }}>
-                    {formatDate(grade.date_added)}
-                  </span>
-                  <span
-                    className="badge bg-primary"
-                    style={{ width: "70px", textAlign: "center" }}
-                  >
-                    {grade.grade}/10
-                  </span>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div
+                      className="d-flex align-items-center"
+                      style={{ width: "70%" }}
+                    >
+                      <span
+                        className="fw-medium me-3"
+                        style={{ width: "100px" }}
+                      >
+                        {formatDate(grade.date_added)}
+                      </span>
+                      <span
+                        className="badge bg-primary"
+                        style={{ width: "70px", textAlign: "center" }}
+                      >
+                        {grade.grade}/10
+                      </span>
+                    </div>
+                    <div>
+                      <button
+                        className="btn btn-outline-secondary btn-sm me-2"
+                        onClick={() => handleEdit(grade.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => handleDelete(grade.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                  {grade.observation && (
+                    <div
+                      className="mt-2 text-muted"
+                      style={{ fontSize: "0.9em" }}
+                    >
+                      <strong>Observation:</strong> {grade.observation}
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <button
-                    className="btn btn-outline-secondary btn-sm me-2"
-                    onClick={() => handleEdit(grade.id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-outline-danger btn-sm"
-                    onClick={() => handleDelete(grade.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-              {grade.observation && (
-                <div className="mt-2 text-muted" style={{ fontSize: "0.9em" }}>
-                  <strong>Observation:</strong> {grade.observation}
-                </div>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
-      ) : (
-        <p className="text-muted">No grades available</p>
+          ) : (
+            <p className="text-muted">No grades available</p>
+          )}
+        </>
       )}
     </div>
   );

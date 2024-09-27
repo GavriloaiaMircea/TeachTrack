@@ -3,16 +3,30 @@ import GradeList from "./GradeList";
 import AttendanceList from "./AttendanceList";
 
 function StudentList({ students, onDelete, classId }) {
+  const formatName = (name) => {
+    return name
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
   let sortedStudents = students || [];
 
   if (students && students.length > 0) {
-    sortedStudents = [...students].sort((a, b) => {
-      const lastNameComparison = a.last_name.localeCompare(b.last_name);
-      if (lastNameComparison !== 0) {
-        return lastNameComparison;
-      }
-      return a.first_name.localeCompare(b.first_name);
-    });
+    sortedStudents = [...students]
+      .map((student) => ({
+        ...student,
+        first_name: formatName(student.first_name),
+        last_name: formatName(student.last_name),
+      }))
+      .sort((a, b) => {
+        const lastNameComparison = a.last_name.localeCompare(b.last_name);
+        if (lastNameComparison !== 0) {
+          return lastNameComparison;
+        }
+        return a.first_name.localeCompare(b.first_name);
+      });
   }
 
   return (
@@ -38,12 +52,8 @@ function StudentList({ students, onDelete, classId }) {
                   </button>
                 </div>
                 <div className="flex-grow-1 d-flex flex-column">
-                  <div className="mb-3">
-                    <GradeList studentId={student.id} classId={classId} />
-                  </div>
-                  <div>
-                    <AttendanceList studentId={student.id} classId={classId} />
-                  </div>
+                  <GradeList studentId={student.id} classId={classId} />
+                  <AttendanceList studentId={student.id} classId={classId} />
                 </div>
               </div>
             </div>
