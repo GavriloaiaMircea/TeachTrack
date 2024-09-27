@@ -5,6 +5,7 @@ import userRouter from "./routes/userRoutes.js";
 import classRouter from "./routes/classRoutes.js";
 import studentRouter from "./routes/studentRoutes.js";
 import attendanceRouter from "./routes/attendanceRoutes.js";
+import gradeRouter from "./routes/gradeRoutes.js";
 import cors from "cors";
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/users", userRouter);
 app.use("/api/classes", classRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/attendance", attendanceRouter);
+app.use("/api/grades", gradeRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
