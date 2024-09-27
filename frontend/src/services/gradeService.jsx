@@ -13,3 +13,13 @@ export const getGrades = async (student_id, class_id) => {
     return { message: "Internal server error" };
   }
 };
+
+export const deleteGrade = async (gradeId) => {
+  try {
+    const response = await axios.delete(`${API_URL}grades/${gradeId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return { message: "Internal server error" };
+  }
+};

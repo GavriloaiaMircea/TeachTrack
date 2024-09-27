@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getGrades } from "../services/gradeService";
+import { deleteGrade, getGrades } from "../services/gradeService";
 import { format, parseISO } from "date-fns";
 
 function GradeList({ studentId, classId }) {
@@ -18,6 +18,9 @@ function GradeList({ studentId, classId }) {
   }, [studentId, classId]);
 
   const sortGradesByDate = (gradesList) => {
+    if (!Array.isArray(gradesList)) {
+      return [];
+    }
     return [...gradesList].sort(
       (a, b) =>
         parseISO(b.date_added).getTime() - parseISO(a.date_added).getTime()
@@ -42,7 +45,13 @@ function GradeList({ studentId, classId }) {
   };
 
   const handleDelete = (gradeId) => {
-    console.log("Delete grade", gradeId);
+    deleteGrade(gradeId)
+      .then((data) => {
+        setGrades(grades.filter((grade) => grade.id !== gradeId));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (

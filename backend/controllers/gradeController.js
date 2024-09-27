@@ -28,3 +28,19 @@ export const getGrades = async (req, res) => {
     res.status(500).json({ message: "Internal server Error" });
   }
 };
+
+export const deleteGrade = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const grade = await db.query("DELETE FROM grades WHERE id = $1", [id]);
+
+    if (grade.rowCount === 0) {
+      return res.status(404).json({ message: "Grade not found" });
+    }
+
+    res.status(200).json({ message: "Grade deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
