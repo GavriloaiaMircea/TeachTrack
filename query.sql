@@ -29,7 +29,7 @@ CREATE TABLE students_classes(
 CREATE TABLE grades(
 	id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 	student_class_id UUID REFERENCES students_classes(id),
-	grade INTEGER,
+	grade FLOAT,
 	date_added DATE,
 	observation TEXT
 )

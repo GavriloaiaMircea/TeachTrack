@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { deleteGrade, getGrades } from "../services/gradeService";
 import { format, parseISO } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 function GradeList({ studentId, classId }) {
   const [grades, setGrades] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getGrades(studentId, classId)
@@ -37,7 +39,7 @@ function GradeList({ studentId, classId }) {
   };
 
   const handleAdd = () => {
-    console.log("Add grade");
+    navigate(`/class/${classId}/${studentId}/add-grade`);
   };
 
   const handleEdit = (gradeId) => {
