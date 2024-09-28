@@ -3,13 +3,11 @@ import pg from "pg";
 
 dotenv.config();
 
-const db = new pg.Client({
+const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
 });
-
-db.connect();
 
 export default db;
