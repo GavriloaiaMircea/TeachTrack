@@ -11,6 +11,7 @@ import AddAttendancePage from "./pages/AddAttendancePage";
 import EditAttendancePage from "./pages/EditAttendancePage";
 import AddGradePage from "./pages/AddGradePage";
 import EditGradePage from "./pages/EditGradePage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage />,
   },
   {
     path: "/",

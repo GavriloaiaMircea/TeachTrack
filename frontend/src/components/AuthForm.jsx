@@ -18,6 +18,12 @@ function AuthForm({
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
   const setUser = useUserStore((state) => state.setUser);
+  let type;
+  if (title === "Please sign in") {
+    type = "login";
+  } else {
+    type = "register";
+  }
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -95,6 +101,11 @@ function AuthForm({
             {linkPath === "/login" ? "Login" : "Register"}
           </Link>
         </p>
+        {type === "login" && (
+          <p className="mt-3 mb-0">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </p>
+        )}
       </form>
     </div>
   );

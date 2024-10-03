@@ -9,6 +9,7 @@ import {
   Container,
   Nav,
 } from "react-bootstrap";
+import { BsSearch } from "react-icons/bs";
 
 function NavBar({ logout, addClass, onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,6 +29,14 @@ function NavBar({ logout, addClass, onSearch }) {
       <Container fluid className="flex-column flex-lg-row">
         <Navbar.Brand className="d-flex align-items-center mb-2 mb-lg-0">
           <img src={icon} width="40" height="40" alt="" className="me-2" />
+          <a
+            href="https://github.com/GavriloaiaMircea/TeachTrack"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none me-2"
+          >
+            <i className="bi bi-github" style={{ fontSize: "2.5rem" }}></i>
+          </a>
           <span className="h5 mb-0">Hello {username}</span>
         </Navbar.Brand>
 
@@ -50,8 +59,8 @@ function NavBar({ logout, addClass, onSearch }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button variant="outline-success" type="submit">
-              Search
+            <Button variant="outline-dark" type="submit">
+              <BsSearch />
             </Button>
           </Form>
 
