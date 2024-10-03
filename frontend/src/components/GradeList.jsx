@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function GradeList({ studentId, classId }) {
   const [grades, setGrades] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [averageGrade, setAverageGrade] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +14,7 @@ function GradeList({ studentId, classId }) {
       .then((data) => {
         const sortedGrades = sortGradesByDate(data);
         setGrades(sortedGrades);
+        calculateAverageGrade(sortedGrades);
       })
       .catch((err) => {
         console.error(err);
@@ -27,6 +29,22 @@ function GradeList({ studentId, classId }) {
       (a, b) =>
         parseISO(b.date_added).getTime() - parseISO(a.date_added).getTime()
     );
+  };
+
+  const calculateAverageGrade = (gradesList) => {
+    if (gradesList.length === 0) {
+      setAverageGrade(null);
+      return;
+    }
+    const sum = gradesList.reduce((acc, grade) => acc + grade.grade, 0);
+    const avg = sum / gradesList.length;
+    setAverageGrade(avg.toFixed(2));
+  };
+
+  const getAverageGradeColor = (average) => {
+    if (average < 5) return "danger";
+    if (average < 8) return "warning";
+    return "success";
   };
 
   const formatDate = (dateString) => {
@@ -48,8 +66,10 @@ function GradeList({ studentId, classId }) {
 
   const handleDelete = (gradeId) => {
     deleteGrade(gradeId)
-      .then((data) => {
-        setGrades(grades.filter((grade) => grade.id !== gradeId));
+      .then(() => {
+        const updatedGrades = grades.filter((grade) => grade.id !== gradeId);
+        setGrades(updatedGrades);
+        calculateAverageGrade(updatedGrades);
       })
       .catch((err) => {
         console.error(err);
@@ -72,6 +92,14 @@ function GradeList({ studentId, classId }) {
           </button>
         </div>
       </div>
+      {averageGrade !== null && (
+        <div
+          className={`alert alert-${getAverageGradeColor(averageGrade)}`}
+          role="alert"
+        >
+          Average Grade: <strong>{averageGrade}</strong>
+        </div>
+      )}
       {isExpanded && (
         <>
           {grades.length > 0 ? (
@@ -93,7 +121,9 @@ function GradeList({ studentId, classId }) {
                         {formatDate(grade.date_added)}
                       </span>
                       <span
-                        className="badge bg-primary mb-1 mb-sm-0"
+                        className={`badge bg-${getAverageGradeColor(
+                          grade.grade
+                        )} mb-1 mb-sm-0`}
                         style={{ minWidth: "70px", textAlign: "center" }}
                       >
                         {grade.grade}/10
